@@ -1,0 +1,22 @@
+<powershell>
+Start-Transcript -Path C:\user-data.log
+Install-WindowsFeature -name Web-Server -IncludeManagementTools
+Import-Module WebAdministration
+Remove-Website -Name "Default Web Site"
+New-Item -ItemType Directory -Name 'Server1' -Path 'C:\'
+New-Item -ItemType File -Name 'index.html' -Path 'C:\Server1\'
+Add-Content -Path C:\Server1\index.html -Value '<!DOCTYPE html>
+<html>
+    <head>
+         <title>Server 1 DEMO</title>
+    </head>
+    <body>
+        <h1>Server 2 DEMO</h1>
+        <p>All work</p>
+    </body>
+</html>'
+New-WebAppPool -Name "NewAppPool"
+New-WebSite -Name "Server1" -Port 80 -PhysicalPath "C:\Server1\" -ApplicationPool "NewAppPool"
+New-NetFirewallRule -DisplayName "Allow Port 80" -Direction Inbound -LocalPort 80 -Protocol TCP -Action Allow
+Stop-Transcript
+</powershell>
