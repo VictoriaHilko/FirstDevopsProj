@@ -24,4 +24,4 @@ jobs:
       run: docker build . --file Dockerfile --tag khilkov/devops_cource:latest
       
     - name: Docker Push
-      run: docker push khilkov/devops_cource
+      run: docker push khilkov/devops_cource:latest
